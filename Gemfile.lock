@@ -39,6 +39,11 @@ GEM
     arel (6.0.3)
     builder (3.2.2)
     concurrent-ruby (1.0.1)
+    delayed_job (4.1.1)
+      activesupport (>= 3.0, < 5.0)
+    delayed_job_active_record (4.1.0)
+      activerecord (>= 3.0, < 5)
+      delayed_job (>= 3.0, < 5)
     erubis (2.7.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -104,6 +109,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  delayed_job_active_record
   mysql2
   rails (= 4.2.6)
   rails-api
