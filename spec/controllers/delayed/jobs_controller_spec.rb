@@ -27,8 +27,12 @@ RSpec.describe Delayed::JobsController, type: :controller do
     FactoryGirl.attributes_for(:delayed_job)
   }
 
+  let(:valid_params) {
+    FactoryGirl.attributes_for(:delayed_job).tap{|d| d.delete("handler"); d["command"] = "date" }
+  }
+
   let(:invalid_attributes) {
-    valid_attributes.tap{|d| d["handler"] = nil}
+    valid_params.tap{|d| d["command"] = nil}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -56,18 +60,18 @@ RSpec.describe Delayed::JobsController, type: :controller do
     context "with valid params" do
       it "creates a new Delayed::Job" do
         expect {
-          post :create, {:job => valid_attributes}, valid_session
+          post :create, {:job => valid_params}, valid_session
         }.to change(Delayed::Job, :count).by(1)
       end
 
       it "assigns a newly created delayed_job as @delayed_job" do
-        post :create, {:job => valid_attributes}, valid_session
+        post :create, {:job => valid_params}, valid_session
         expect(assigns(:delayed_job)).to be_a(Delayed::Job)
         expect(assigns(:delayed_job)).to be_persisted
       end
 
       it "redirects to the created delayed_job" do
-        post :create, {:job => valid_attributes}, valid_session
+        post :create, {:job => valid_params}, valid_session
         expect(response).to have_http_status(:created)
       end
     end
