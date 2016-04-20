@@ -50,7 +50,7 @@ test:
 #
 production:
   <<: *default
-  host: <%= ENV['HTTP_JOB_RUNNER_DATABASE_NAME'] || "localhost" %>
+  host: <%= ENV['HTTP_JOB_RUNNER_DATABASE_HOST'] || "localhost" %>
   port: <%= ENV['HTTP_JOB_RUNNER_DATABASE_PORT'] || 3306 %>
   database: <%= ENV['HTTP_JOB_RUNNER_DATABASE_NAME'] || "http_job_runner_production" %>
   username: <%= ENV['HTTP_JOB_RUNNER_DATABASE_USERNAME'] %>
