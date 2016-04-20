@@ -68,7 +68,7 @@ RSpec.describe Delayed::JobsController, type: :controller do
 
       it "redirects to the created delayed_job" do
         post :create, {:delayed_job => valid_attributes}, valid_session
-        expect(response).to redirect_to(Delayed::Job.last)
+        expect(response).to have_http_status(:created)
       end
     end
 
@@ -107,7 +107,7 @@ RSpec.describe Delayed::JobsController, type: :controller do
       it "redirects to the delayed_job" do
         job = Delayed::Job.create! valid_attributes
         put :update, {:id => job.to_param, :delayed_job => valid_attributes}, valid_session
-        expect(response).to redirect_to(job)
+        expect(response).to have_http_status(:no_content)
       end
     end
 
@@ -137,7 +137,7 @@ RSpec.describe Delayed::JobsController, type: :controller do
     it "redirects to the delayed_jobs list" do
       job = Delayed::Job.create! valid_attributes
       delete :destroy, {:id => job.to_param}, valid_session
-      expect(response).to redirect_to(delayed_jobs_url)
+      expect(response).to have_http_status(:no_content)
     end
   end
 
