@@ -34,5 +34,17 @@ module HttpJobRunner
 
     # https://github.com/collectiveidea/delayed_job#rails-42
     config.active_job.queue_adapter = :delayed_job
+
+    # config.time_zone = 'Tokyo'
+    # config.active_record.default_timezone = :local
+
+    # config.i18n.default_locale = :ja
+
+    config.generators do |g|
+      # g.orm             :mongoid
+      g.test_framework  :rspec
+      g.factory_girl dir: 'spec/factories'
+      # g.template_engine :haml
+    end
   end
 end
