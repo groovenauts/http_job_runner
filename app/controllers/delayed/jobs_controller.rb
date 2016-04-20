@@ -61,8 +61,8 @@ class Delayed::JobsController < ApplicationController
 
     # Delayed::Job is actually Delayed::Backend::ActiveRecord::Job.
     # So controller try to call methods like `delayed_backend_active_record_jobs_url`,
-    # which aren't implemented. To resolve this problem, define aliases of
-    # unimplemented methods
+    # which aren't implemented. To resolve this problem, define methods for delayed_job
+    # which calls methods for delayed_backend_active_record_job.
     orig = "delayed_backend_active_record_job"
     dest = "delayed_job"
     {
@@ -71,7 +71,9 @@ class Delayed::JobsController < ApplicationController
       "edit_#{orig}" => "edit_#{dest}",
       orig           => dest,
     }.each do |s,d|
-      alias_method :"#{s}_path", :"#{d}_path"
-      alias_method :"#{s}_url" , :"#{d}_url"
+      module_eval(
+        "def #{s}_path(*args, &block); #{d}_path(*args, &block); end\n" \
+        "def #{s}_url(*args, &block) ; #{d}_url(*args, &block); end\n"
+      )
     end
 end
