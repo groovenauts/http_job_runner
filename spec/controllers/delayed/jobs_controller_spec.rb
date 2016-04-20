@@ -56,30 +56,30 @@ RSpec.describe Delayed::JobsController, type: :controller do
     context "with valid params" do
       it "creates a new Delayed::Job" do
         expect {
-          post :create, {:delayed_job => valid_attributes}, valid_session
+          post :create, {:job => valid_attributes}, valid_session
         }.to change(Delayed::Job, :count).by(1)
       end
 
       it "assigns a newly created delayed_job as @delayed_job" do
-        post :create, {:delayed_job => valid_attributes}, valid_session
+        post :create, {:job => valid_attributes}, valid_session
         expect(assigns(:delayed_job)).to be_a(Delayed::Job)
         expect(assigns(:delayed_job)).to be_persisted
       end
 
       it "redirects to the created delayed_job" do
-        post :create, {:delayed_job => valid_attributes}, valid_session
+        post :create, {:job => valid_attributes}, valid_session
         expect(response).to have_http_status(:created)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved delayed_job as @delayed_job" do
-        post :create, {:delayed_job => invalid_attributes}, valid_session
+        post :create, {:job => invalid_attributes}, valid_session
         expect(assigns(:delayed_job)).to be_a_new(Delayed::Job)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:delayed_job => invalid_attributes}, valid_session
+        post :create, {:job => invalid_attributes}, valid_session
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -93,20 +93,20 @@ RSpec.describe Delayed::JobsController, type: :controller do
 
       it "updates the requested delayed_job" do
         job = Delayed::Job.create! valid_attributes
-        put :update, {:id => job.to_param, :delayed_job => new_attributes}, valid_session
+        put :update, {:id => job.to_param, :job => new_attributes}, valid_session
         job.reload
         expect(job.priority).to eq 2
       end
 
       it "assigns the requested delayed_job as @delayed_job" do
         job = Delayed::Job.create! valid_attributes
-        put :update, {:id => job.to_param, :delayed_job => valid_attributes}, valid_session
+        put :update, {:id => job.to_param, :job => valid_attributes}, valid_session
         expect(assigns(:delayed_job)).to eq(job)
       end
 
       it "redirects to the delayed_job" do
         job = Delayed::Job.create! valid_attributes
-        put :update, {:id => job.to_param, :delayed_job => valid_attributes}, valid_session
+        put :update, {:id => job.to_param, :job => valid_attributes}, valid_session
         expect(response).to have_http_status(:no_content)
       end
     end
@@ -114,13 +114,13 @@ RSpec.describe Delayed::JobsController, type: :controller do
     context "with invalid params" do
       it "assigns the delayed_job as @delayed_job" do
         job = Delayed::Job.create! valid_attributes
-        put :update, {:id => job.to_param, :delayed_job => invalid_attributes}, valid_session
+        put :update, {:id => job.to_param, :job => invalid_attributes}, valid_session
         expect(assigns(:delayed_job)).to eq(job)
       end
 
       it "re-renders the 'edit' template" do
         job = Delayed::Job.create! valid_attributes
-        put :update, {:id => job.to_param, :delayed_job => invalid_attributes}, valid_session
+        put :update, {:id => job.to_param, :job => invalid_attributes}, valid_session
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end

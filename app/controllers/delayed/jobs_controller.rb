@@ -54,7 +54,7 @@ class Delayed::JobsController < ApplicationController
     end
 
     def delayed_job_params
-      params.fetch(:delayed_job, {}).permit(:priority, :handler, :queue)
+      params.fetch(:job, {}).permit(:priority, :handler, :queue)
     end
 
     # Delayed::Job is actually Delayed::Backend::ActiveRecord::Job.
