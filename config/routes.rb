@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
-  namespace :delayed do
-    resources :jobs
-  end
+  get "jobs", to: "delayed/jobs#index", as: "delayed_jobs"
+  resources :jobs, controller: "delayed/jobs", as: "delayed_job", except: [:index]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
