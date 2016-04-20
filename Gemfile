@@ -11,6 +11,8 @@ gem 'spring', :group => :development
 gem 'mysql2'
 
 gem 'delayed_job_active_record'
+gem 'daemons' # for delayed_job worker process
+
 gem 'logger_pipe'
 
 # To use ActiveModel has_secure_password
