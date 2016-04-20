@@ -19,8 +19,8 @@ class Delayed::JobsController < ApplicationController
   # POST /delayed/jobs.json
   def create
     @delayed_job =
-      LoggerPipe.delay(queue: delayed_job_params[:queue], priority: delayed_job_params[:queue]).
-      run(Rails.logger, delayed_job_params[:command])
+      Command.delay(queue: delayed_job_params[:queue], priority: delayed_job_params[:queue]).
+      run(delayed_job_params[:command])
 
     if @delayed_job.save
       render json: @delayed_job, status: :created, location: @delayed_job
