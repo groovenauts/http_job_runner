@@ -88,14 +88,14 @@ RSpec.describe Delayed::JobsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {"priority" => 2}
       }
 
       it "updates the requested delayed_job" do
         job = Delayed::Job.create! valid_attributes
         put :update, {:id => job.to_param, :delayed_job => new_attributes}, valid_session
         job.reload
-        skip("Add assertions for updated state")
+        expect(job.priority).to eq 2
       end
 
       it "assigns the requested delayed_job as @delayed_job" do
