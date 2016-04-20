@@ -50,8 +50,8 @@ test:
 #
 production:
   <<: *default
-  host: <%= ENV['HTTP_JOB_RUNNER_DATABASE_HOST'] || "localhost" %>
-  port: <%= ENV['HTTP_JOB_RUNNER_DATABASE_PORT'] || 3306 %>
-  database: <%= ENV['HTTP_JOB_RUNNER_DATABASE_NAME'] || "http_job_runner_production" %>
-  username: <%= ENV['HTTP_JOB_RUNNER_DATABASE_USERNAME'] %>
-  password: <%= ENV['HTTP_JOB_RUNNER_DATABASE_PASSWORD'] %>
+  host: <%= ENV['MYSQL_PORT_3306_TCP_ADDR'] || "localhost" %>
+  port: <%= ENV['MYSQL_PORT_3306_TCP_PORT'] || 3306 %>
+  database: <%= ENV['MYSQL_DATABASE_NAME'] || "http_job_runner_production" %>
+  username: <%= ENV['MYSQL_ENV_MYSQL_USER'] %>
+  password: <%= ENV['MYSQL_ENV_MYSQL_PASSWORD'] %>
