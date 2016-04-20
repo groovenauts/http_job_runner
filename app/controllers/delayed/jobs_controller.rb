@@ -18,7 +18,9 @@ class Delayed::JobsController < ApplicationController
   # POST /delayed/jobs
   # POST /delayed/jobs.json
   def create
-    @delayed_job = Delayed::Job.new(delayed_job_params)
+    @delayed_job =
+      LoggerPipe.delay(queue: delayed_job_params[:queue], priority: delayed_job_params[:queue]).
+      run(delayed_job_params[:command])
 
     if @delayed_job.save
       render json: @delayed_job, status: :created, location: @delayed_job
@@ -54,7 +56,7 @@ class Delayed::JobsController < ApplicationController
     end
 
     def delayed_job_params
-      params.fetch(:job, {}).permit(:priority, :handler, :queue)
+      params.fetch(:job, {}).permit(:priority, :command, :queue)
     end
 
     # Delayed::Job is actually Delayed::Backend::ActiveRecord::Job.
