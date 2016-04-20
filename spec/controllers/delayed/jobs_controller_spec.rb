@@ -80,7 +80,7 @@ RSpec.describe Delayed::JobsController, type: :controller do
 
       it "re-renders the 'new' template" do
         post :create, {:delayed_job => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
@@ -121,7 +121,7 @@ RSpec.describe Delayed::JobsController, type: :controller do
       it "re-renders the 'edit' template" do
         job = Delayed::Job.create! valid_attributes
         put :update, {:id => job.to_param, :delayed_job => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
