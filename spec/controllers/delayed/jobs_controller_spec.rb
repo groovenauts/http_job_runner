@@ -28,7 +28,7 @@ RSpec.describe Delayed::JobsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    valid_attributes.tap{|d| d["handler"] = nil}
   }
 
   # This should return the minimal set of values that should be in the session
