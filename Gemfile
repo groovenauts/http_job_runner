@@ -27,3 +27,22 @@ gem 'logger_pipe'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+group :development, :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'simplecov', require: false
+  gem 'simplecov-rcov', require: false
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'pry-stack_explorer'
+  gem 'fuubar'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'rails_best_practices'
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
