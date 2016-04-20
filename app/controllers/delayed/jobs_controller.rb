@@ -6,13 +6,13 @@ class Delayed::JobsController < ApplicationController
   def index
     @delayed_jobs = Delayed::Job.all
 
-    render json: @delayed_jobs
+    render json: to_job_hash(@delayed_jobs)
   end
 
   # GET /delayed/jobs/1
   # GET /delayed/jobs/1.json
   def show
-    render json: @delayed_job
+    render json: to_job_hash(@delayed_job)
   end
 
   # POST /delayed/jobs
@@ -57,6 +57,17 @@ class Delayed::JobsController < ApplicationController
 
     def delayed_job_params
       params.fetch(:job, {}).permit(:priority, :command, :queue)
+    end
+
+    def to_job_hash(job)
+      case job
+      when Array, ActiveRecord::Relation then job.map{|j| to_job_hash(j)}
+      else
+        job.attributes.tap do |d|
+          d.delete('handler')
+          d['command'] = job.payload_object.args.join(' ')
+        end
+      end
     end
 
     # Delayed::Job is actually Delayed::Backend::ActiveRecord::Job.

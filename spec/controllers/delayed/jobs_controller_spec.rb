@@ -40,11 +40,29 @@ RSpec.describe Delayed::JobsController, type: :controller do
   # Delayed::JobsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  let(:expected_item) do
+    valid_attributes.stringify_keys.tap do |d|
+      d["command"] = "date"
+      d.delete("handler")
+      d.keys.select{|k| k =~ /_at\z/}.each do |key|
+        if v = d[key].presence
+          d[key] = Time.zone.parse(d[key]).iso8601.sub(/Z\z/, '.000Z')
+        end
+      end
+    end
+  end
+
   describe "GET #index" do
     it "assigns all delayed_jobs as @delayed_jobs" do
       job = Delayed::Job.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:delayed_jobs)).to eq([job])
+    end
+
+    it "returns jobs as JSON" do
+      job = Delayed::Job.create! valid_attributes
+      get :index, {}, valid_session
+      expect(JSON.parse(response.body)).to eq [expected_item.tap{|d| d["id"] = job.id}]
     end
   end
 
@@ -53,6 +71,12 @@ RSpec.describe Delayed::JobsController, type: :controller do
       job = Delayed::Job.create! valid_attributes
       get :show, {:id => job.to_param}, valid_session
       expect(assigns(:delayed_job)).to eq(job)
+    end
+
+    it "returns job as JSON" do
+      job = Delayed::Job.create! valid_attributes
+      get :show, {:id => job.to_param}, valid_session
+      expect(JSON.parse(response.body)).to eq expected_item.tap{|d| d["id"] = job.id}
     end
   end
 
