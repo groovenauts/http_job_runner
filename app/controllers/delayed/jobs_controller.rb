@@ -54,6 +54,22 @@ class Delayed::JobsController < ApplicationController
     end
 
     def delayed_job_params
-      params[:delayed_job]
+      params.fetch(:delayed_job, {}).permit(:priority, :handler, :queue)
+    end
+
+    # Delayed::Job is actually Delayed::Backend::ActiveRecord::Job.
+    # So controller try to call methods like `delayed_backend_active_record_jobs_url`,
+    # which aren't implemented. To resolve this problem, define aliases of
+    # unimplemented methods
+    orig = "delayed_backend_active_record_job"
+    dest = "delayed_job"
+    {
+      orig.pluralize => dest.pluralize,
+      "new_#{orig}"  => "new_#{dest}",
+      "edit_#{orig}" => "edit_#{dest}",
+      orig           => dest,
+    }.each do |s,d|
+      alias_method :"#{s}_path", :"#{d}_path"
+      alias_method :"#{s}_url" , :"#{d}_url"
     end
 end
