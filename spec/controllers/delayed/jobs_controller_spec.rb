@@ -52,21 +52,6 @@ RSpec.describe Delayed::JobsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new delayed_job as @delayed_job" do
-      get :new, {}, valid_session
-      expect(assigns(:delayed_job)).to be_a_new(Delayed::Job)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested delayed_job as @delayed_job" do
-      job = Delayed::Job.create! valid_attributes
-      get :edit, {:id => job.to_param}, valid_session
-      expect(assigns(:delayed_job)).to eq(job)
-    end
-  end
-
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Delayed::Job" do
