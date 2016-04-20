@@ -15,10 +15,10 @@ default: &default
   pool: 5
   username: root
   password:
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
+  socket: /tmp/mysql.sock
   database: http_job_runner_development
 
 # Warning: The database defined as "test" will be erased and
@@ -26,6 +26,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  socket: /tmp/mysql.sock
   database: http_job_runner_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
@@ -49,6 +50,8 @@ test:
 #
 production:
   <<: *default
-  database: http_job_runner_production
-  username: http_job_runner
+  host: <%= ENV['HTTP_JOB_RUNNER_DATABASE_NAME'] || "localhost" %>
+  port: <%= ENV['HTTP_JOB_RUNNER_DATABASE_PORT'] || 3306 %>
+  database: <%= ENV['HTTP_JOB_RUNNER_DATABASE_NAME'] || "http_job_runner_production" %>
+  username: <%= ENV['HTTP_JOB_RUNNER_DATABASE_USERNAME'] %>
   password: <%= ENV['HTTP_JOB_RUNNER_DATABASE_PASSWORD'] %>
