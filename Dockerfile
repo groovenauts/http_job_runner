@@ -23,7 +23,9 @@
 
 FROM ruby:2.3.0
 
-COPY . /usr/app/http_job_runner
+ENV JOB_HOME=/usr/app/http_job_runner
+
+COPY . $JOB_HOME
 
 ENV RAILS_ENV production
 
@@ -38,4 +40,3 @@ RUN bundle install --without development test
 
 # TODO use another application server
 CMD /usr/app/magellan-proxy --port 3000 bundle exec rails s
-
