@@ -23,11 +23,11 @@
 
 FROM ruby:2.3.0
 
+ENV RAILS_ENV production
+ENV LOG_TO_STDOUT=true
 ENV JOB_HOME=/usr/app/http_job_runner
 
 COPY . $JOB_HOME
-
-ENV RAILS_ENV production
 
 # Magellan Proxy
 # http://devcenter.magellanic-clouds.com/learning/how-to-make-magellan-web-app.html

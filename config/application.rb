@@ -40,6 +40,10 @@ module HttpJobRunner
 
     # config.i18n.default_locale = :ja
 
+    if ENV['LOG_TO_STDOUT'] =~ /true|yes|on|1/i
+      config.logger = ActiveSupport::Logger.new($stdout)
+    end
+
     config.generators do |g|
       # g.orm             :mongoid
       g.test_framework  :rspec
