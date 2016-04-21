@@ -7,11 +7,13 @@
 # $ bundle exec brocket release
 
 # [config] IMAGE_NAME: "http_job_runner_hello_world"
-# [config]
+# [config] 
 # [config] DOCKER_PUSH_USERNAME: "groovenauts"
 # [config] DOCKER_PUSH_EXTRA_TAG: "latest"
-# [config]
+# [config] 
 # [config] WORKING_DIR: "."
+# [config] 
+# [config] GIT_TAG_PREFIX: "examples/hello_world/"
 
 FROM groovenauts/http_job_runner:0.0.1
 
