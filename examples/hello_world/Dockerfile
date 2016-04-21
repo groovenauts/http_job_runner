@@ -8,8 +8,6 @@
 
 # [config] IMAGE_NAME: "http_job_runner_hello_world"
 # [config]
-# [config] # DOCKER_PUSH_COMMAND: "gcloud docker push"
-# [config] # DOCKER_PUSH_REGISTRY: "asia.gcr.io"
 # [config] DOCKER_PUSH_USERNAME: "groovenauts"
 # [config] DOCKER_PUSH_EXTRA_TAG: "latest"
 # [config]
