@@ -17,4 +17,4 @@
 
 FROM groovenauts/http_job_runner:0.0.2
 
-COPY bin/* $JOB_HOME/
+COPY bin/* $JOB_HOME/bin/
