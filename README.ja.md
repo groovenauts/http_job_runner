@@ -23,7 +23,7 @@ HTTP Job Runnerは[Docker](https://www.docker.com/)のコンテナとして利�
 delayed_jobワーカーが非同期でコマンドを実行します。
 
 HTTP Job RunnerのDockerイメージをベースに新しいDockerイメージを作る方法については、
-[HTTP Job Runnerアプリのイメージをビルドする](../doc/build_app_image.ja.md) を
+[HTTP Job Runnerアプリのイメージをリリースする](../doc/release_app_image.ja.md) を
 参照してください。
 
 
