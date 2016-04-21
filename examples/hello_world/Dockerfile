@@ -15,4 +15,4 @@
 
 FROM groovenauts/http_job_runner:0.0.1
 
-COPY * $JOB_HOME/
+COPY bin/* $JOB_HOME/
