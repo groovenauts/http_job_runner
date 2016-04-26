@@ -19,7 +19,7 @@ class Delayed::JobsController < ApplicationController
   # POST /delayed/jobs.json
   def create
     @delayed_job =
-      Command.delay(queue: delayed_job_params[:queue], priority: delayed_job_params[:queue]).
+      Command.delay(queue: delayed_job_params[:queue], priority: delayed_job_params[:priority]).
       run(delayed_job_params[:command])
 
     if @delayed_job.save
