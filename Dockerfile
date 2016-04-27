@@ -42,4 +42,4 @@ ADD https://github.com/groovenauts/magellan-proxy/releases/download/v0.1.3/magel
 RUN chmod +x /usr/app/magellan-proxy
 
 # TODO use another application server
-CMD /usr/app/magellan-proxy --port 3000 bundle exec rails s
+ENTRYPOINT [ "./docker-entrypoint.sh" ]
