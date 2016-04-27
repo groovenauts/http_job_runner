@@ -62,7 +62,7 @@ DefaultStage1の作成方法（存在しない場合）
 | name                  | value                                         |
 | --------------------- | --------------------------------------------- |
 | Name                  | hello_world                                   |
-| Image Name            | groovenauts/http_job_runner_hello_world:0.0.2 |
+| Image Name            | groovenauts/http_job_runner_hello_world:0.0.5 |
 | Container Num         | 1                                             |
 | Migration Command 1   | bundle exec rake db:migrate:reset db:seed     |
 | Migration Command 2   | bundle exec rake db:migrate                   |
@@ -143,7 +143,7 @@ delayed_jobのワーカーを動かすためにステージを新たに追加し
 | item name             | value                                         |
 | --------------------- | --------------------------------------------- |
 | Name                  | delayed_job                                   |
-| Image Name            | groovenauts/http_job_runner_hello_world:0.0.4 |
+| Image Name            | groovenauts/http_job_runner_hello_world:0.0.5 |
 | Container Num         | 1                                             |
 | Migration Command 1   | bundle exec rake db:migrate:reset db:seed     |
 | Migration Command 2   | bundle exec rake db:migrate                   |
@@ -164,31 +164,8 @@ MYSQL_ENV_MYSQL_PASSWORD: passwordの内容
 # Rails 関連
 RAILS_ENV: production
 SECRET_KEY_BASE: d6295088a32acfc29a844a0bac73d5660bebfb6e5d0a81eb49f4e3428f79713638ddd3caa607e1906fdeb874115200c0fd3dc3c55ad92e7030b729e61b0eec6a
+RUN_MODE: delayed_job
 ```
-
-＊ブラウザでrun_commandが設定できないんのでとりあえずコマンドから設定する
-
-```
-run_command: "bundle exec bin/delayed_job run"
-
-# Worker に渡す環境変数
-environment_vars_yaml: |
-  # MAGELLAN 関連
-  #   MAGELLAN_HTTP_WORKER:       Worker が HTTP 通信をする場合は、1/true/yes/on のいずれかを設定。そうでない場合は、0/false/no/off のいずれかを設定。
-  #   MAGELLAN_SUBSCRIBER_WORKER: Worker が Pub/Sub 機能を使用する場合は、1/true/yes/on のいずれかを設定。そうでない場合は、0/false/no/off のいずれかを設定。
-  MAGELLAN_HTTP_WORKER: 0
-  MAGELLAN_SUBSCRIBER_WORKER: 0
-  #  MySQL接続設定
-  #   hello_worldワーカーと同じ内容
-  MYSQL_PORT_3306_TCP_ADDR: addressの内容
-  MYSQL_DATABASE_NAME: nameの内容
-  MYSQL_ENV_MYSQL_USER: usernameの内容
-  MYSQL_ENV_MYSQL_PASSWORD: passwordの内容
-  # Rails 関連
-  RAILS_ENV: production
-  SECRET_KEY_BASE: d6295088a32acfc29a844a0bac73d5660bebfb6e5d0a81eb49f4e3428f79713638ddd3caa607e1906fdeb874115200c0fd3dc3c55ad92e7030b729e61b0eec6a
-```
-
 
 **リリースします。**
 
@@ -202,12 +179,12 @@ Logsのタブを見る
 
 ```
 $ bundle exec magellan-cli stage logs
-2016-04-21 17:48:30:1:2e501: 0.0.4: Pulling from groovenauts/http_job_runner_hello_world
+2016-04-21 17:48:30:1:2e501: 0.0.5: Pulling from groovenauts/http_job_runner_hello_world
 2016-04-21 17:48:30:1:2e501: efd26ecc9548: Already exists
 2016-04-21 17:48:30:1:2e501: a3ed95caeb02: Already exists
 (snip)
 2016-04-21 17:48:37:1:2e501: 04b2e725effd: Already exists
 2016-04-21 17:48:37:1:2e501: Digest: sha256:4f0c50f3ec635c900a60bd1273f305ac75eb47096d9990df43beca5abc80793e
-2016-04-21 17:48:37:1:2e501: Status: Image is up to date for groovenauts/http_job_runner_hello_world:0.0.4
+2016-04-21 17:48:37:1:2e501: Status: Image is up to date for groovenauts/http_job_runner_hello_world:0.0.5
 2016-04-21 17:48:42:1:2e501: delayed_job: process with pid 14 started.
 ```
