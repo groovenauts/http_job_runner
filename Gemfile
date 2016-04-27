@@ -10,7 +10,10 @@ gem 'spring', :group => :development
 
 gem 'mysql2'
 
+gem 'delayed_job_active_record'
+gem 'daemons' # for delayed_job worker process
 
+gem 'logger_pipe'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -26,3 +29,23 @@ gem 'mysql2'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+group :development, :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'simplecov', require: false
+  gem 'simplecov-rcov', require: false
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'pry-stack_explorer'
+  gem 'fuubar'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'rails_best_practices'
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'brocket'
+end

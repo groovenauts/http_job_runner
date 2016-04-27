@@ -31,5 +31,24 @@ module HttpJobRunner
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # https://github.com/collectiveidea/delayed_job#rails-42
+    config.active_job.queue_adapter = :delayed_job
+
+    # config.time_zone = 'Tokyo'
+    # config.active_record.default_timezone = :local
+
+    # config.i18n.default_locale = :ja
+
+    if ENV['LOG_TO_STDOUT'] =~ /true|yes|on|1/i
+      config.logger = ActiveSupport::Logger.new($stdout)
+    end
+
+    config.generators do |g|
+      # g.orm             :mongoid
+      g.test_framework  :rspec
+      g.factory_girl dir: 'spec/factories'
+      # g.template_engine :haml
+    end
   end
 end
