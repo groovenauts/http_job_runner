@@ -52,16 +52,16 @@ Total: 1
 ```
 
 
-次にMAGELLANのWorker `http_server` として dockerイメージ `groovenauts/http_job_runner_hello_world:0.0.2`
+次にMAGELLANのWorker `http_server` として dockerイメージ `groovenauts/http_job_runner_hello_world:0.0.5`
 を登録します。
 
 ```
-$ bundle exec magellan-cli worker create http_server groovenauts/http_job_runner_hello_world:0.0.2
+$ bundle exec magellan-cli worker create http_server groovenauts/http_job_runner_hello_world:0.0.5
 $ bundle exec magellan-cli worker list
 +---+-------+----------------------------------+-------------+--------+-----------------------------------------------+---------+---------+------------------+------------------+
 |   |  id   |              stage               |    name     | status |                  image_name                   | log_dir | version | root_url_mapping | migration_status |
 +---+-------+----------------------------------+-------------+--------+-----------------------------------------------+---------+---------+------------------+------------------+
-| * | 12046 | [DefaultProject1]DefaultStage1#1 | hello_world | 1      | groovenauts/http_job_runner_hello_world:0.0.1 |         | 1       | true             | not_yet          |
+| * | 12046 | [DefaultProject1]DefaultStage1#1 | hello_world | 1      | groovenauts/http_job_runner_hello_world:0.0.5 |         | 1       | true             | not_yet          |
 +---+-------+----------------------------------+-------------+--------+-----------------------------------------------+---------+---------+------------------+------------------+
 
 Total: 1
@@ -107,7 +107,7 @@ $ bundle exec magellan-cli worker show
 | stage_version_id | [DefaultProject1]DefaultStage1#1              |
 | name             | http_server                                   |
 | status           | 1                                             |
-| image_name       | groovenauts/http_job_runner_hello_world:0.0.1 |
+| image_name       | groovenauts/http_job_runner_hello_world:0.0.5 |
 | log_dir          |                                               |
 | version          | 1                                             |
 | root_url_mapping | true                                          |
@@ -148,7 +148,7 @@ $ bundle exec magellan-cli stage prepare
 +---+-------+----------------------------------+----------------+-----------------------------------------------+-------------------------+-------+-----------------------------------------------+----------+------------+--------------+------------+
 |   |  id   |              stage               | vm_instance_id |                     image                     | container_assignment_id | name  |                  image_name                   |  status  | docker_cid | memory_limit | cpu_shares |
 +---+-------+----------------------------------+----------------+-----------------------------------------------+-------------------------+-------+-----------------------------------------------+----------+------------+--------------+------------+
-|   | 28881 | [DefaultProject1]DefaultStage1#1 | 184            | groovenauts/http_job_runner_hello_world:0.0.1 | 23835                   | 2e101 | groovenauts/http_job_runner_hello_world:0.0.1 | planning |            | 200M         | 2          |
+|   | 28881 | [DefaultProject1]DefaultStage1#1 | 184            | groovenauts/http_job_runner_hello_world:0.0.5 | 23835                   | 2e101 | groovenauts/http_job_runner_hello_world:0.0.5 | planning |            | 200M         | 2          |
 +---+-------+----------------------------------+----------------+-----------------------------------------------+-------------------------+-------+-----------------------------------------------+----------+------------+--------------+------------+
 
 Total: 1
@@ -159,10 +159,10 @@ $ bundle exec magellan-cli container show 28881
 | id                      | 28881                                         |
 | stage_version_id        | [DefaultProject1]DefaultStage1#1              |
 | vm_instance_id          | 184                                           |
-| container_image_id      | groovenauts/http_job_runner_hello_world:0.0.1 |
+| container_image_id      | groovenauts/http_job_runner_hello_world:0.0.5 |
 | container_assignment_id | 23835                                         |
 | name                    | 2e101                                         |
-| image_name              | groovenauts/http_job_runner_hello_world:0.0.1 |
+| image_name              | groovenauts/http_job_runner_hello_world:0.0.5 |
 | status                  | planning                                      |
 | docker_cid              |                                               |
 | memory_limit            | 200M                                          |
@@ -242,16 +242,16 @@ Total: 2
 ```
 
 
-次にMAGELLANのWorker `delayed_job` として dockerイメージ `groovenauts/http_job_runner_hello_world:0.0.4`
+次にMAGELLANのWorker `delayed_job` として dockerイメージ `groovenauts/http_job_runner_hello_world:0.0.5`
 を登録します。
 
 ```
-$ bundle exec magellan-cli worker create delayed_job groovenauts/http_job_runner_hello_world:0.0.4
+$ bundle exec magellan-cli worker create delayed_job groovenauts/http_job_runner_hello_world:0.0.5
 $ bundle exec magellan-cli worker list
 +---+-------+------------------------------+-------------+--------+-----------------------------------------------+---------+---------+------------------+------------------+
 |   |  id   |            stage             |    name     | status |                  image_name                   | log_dir | version | root_url_mapping | migration_status |
 +---+-------+------------------------------+-------------+--------+-----------------------------------------------+---------+---------+------------------+------------------+
-| * | 12052 | [DefaultProject1]JobWorker#1 | delayed_job | 1      | groovenauts/http_job_runner_hello_world:0.0.4 |         | 1       | true             | not_yet          |
+| * | 12052 | [DefaultProject1]JobWorker#1 | delayed_job | 1      | groovenauts/http_job_runner_hello_world:0.0.5 |         | 1       | true             | not_yet          |
 +---+-------+------------------------------+-------------+--------+-----------------------------------------------+---------+---------+------------------+------------------+
 
 Total: 1
@@ -260,8 +260,6 @@ Total: 1
 `delayed_job.yml` を以下の内容で作成します。
 
 ```yaml
-run_command: "bundle exec bin/delayed_job run"
-
 # Worker に渡す環境変数
 environment_vars_yaml: |
   # MAGELLAN 関連
@@ -277,6 +275,7 @@ environment_vars_yaml: |
   # Rails 関連
   RAILS_ENV: production
   SECRET_KEY_BASE: d6295088a32acfc29a844a0bac73d5660bebfb6e5d0a81eb49f4e3428f79713638ddd3caa607e1906fdeb874115200c0fd3dc3c55ad92e7030b729e61b0eec6a
+  RUN_MODE: delayed_job
 ```
 
 Workerの属性を更新します。
@@ -291,7 +290,7 @@ $ bundle exec magellan-cli worker show
 | stage_version_id | [DefaultProject1]JobWorker#1                  |
 | name             | delayed_job                                   |
 | status           | 1                                             |
-| image_name       | groovenauts/http_job_runner_hello_world:0.0.4 |
+| image_name       | groovenauts/http_job_runner_hello_world:0.0.5 |
 | log_dir          |                                               |
 | version          | 1                                             |
 | root_url_mapping | true                                          |
@@ -305,7 +304,6 @@ $ bundle exec magellan-cli worker show
 ============== migration_command_2 ===============
 
 ================== run_command ===================
-bundle exec bin/delayed_job start
 
 ============= environment_vars_yaml ==============
 # MAGELLAN 関連
@@ -321,6 +319,7 @@ MYSQL_ENV_MYSQL_PASSWORD: 019f1843fee97c42
 # Rails 関連
 RAILS_ENV: production
 SECRET_KEY_BASE: d6295088a32acfc29a844a0bac73d5660bebfb6e5d0a81eb49f4e3428f79713638ddd3caa607e1906fdeb874115200c0fd3dc3c55ad92e7030b729e61b0eec6a
+RUN_MODE: delayed_job
 ```
 
 リリースします。
@@ -330,7 +329,7 @@ $ bundle exec magellan-cli stage prepare
 +---+-------+------------------------------+----------------+-----------------------------------------------+-------------------------+-------+-----------------------------------------------+----------+------------+--------------+------------+
 |   |  id   |            stage             | vm_instance_id |                     image                     | container_assignment_id | name  |                  image_name                   |  status  | docker_cid | memory_limit | cpu_shares |
 +---+-------+------------------------------+----------------+-----------------------------------------------+-------------------------+-------+-----------------------------------------------+----------+------------+--------------+------------+
-|   | 28896 | [DefaultProject1]JobWorker#2 | 185            | groovenauts/http_job_runner_hello_world:0.0.4 | 23850                   | 2e601 | groovenauts/http_job_runner_hello_world:0.0.4 | planning |            | 200M         | 2          |
+|   | 28896 | [DefaultProject1]JobWorker#2 | 185            | groovenauts/http_job_runner_hello_world:0.0.5 | 23850                   | 2e601 | groovenauts/http_job_runner_hello_world:0.0.5 | planning |            | 200M         | 2          |
 +---+-------+------------------------------+----------------+-----------------------------------------------+-------------------------+-------+-----------------------------------------------+----------+------------+--------------+------------+
 
 Total: 1
@@ -344,13 +343,12 @@ completed
 
 ```
 $ bundle exec magellan-cli stage logs
-2016-04-21 17:48:30:1:2e501: 0.0.4: Pulling from groovenauts/http_job_runner_hello_world
+2016-04-21 17:48:30:1:2e501: 0.0.5: Pulling from groovenauts/http_job_runner_hello_world
 2016-04-21 17:48:30:1:2e501: efd26ecc9548: Already exists
 2016-04-21 17:48:30:1:2e501: a3ed95caeb02: Already exists
 (snip)
 2016-04-21 17:48:37:1:2e501: 04b2e725effd: Already exists
 2016-04-21 17:48:37:1:2e501: Digest: sha256:4f0c50f3ec635c900a60bd1273f305ac75eb47096d9990df43beca5abc80793e
-2016-04-21 17:48:37:1:2e501: Status: Image is up to date for groovenauts/http_job_runner_hello_world:0.0.4
+2016-04-21 17:48:37:1:2e501: Status: Image is up to date for groovenauts/http_job_runner_hello_world:0.0.5
 2016-04-21 17:48:42:1:2e501: delayed_job: process with pid 14 started.
 ```
-
