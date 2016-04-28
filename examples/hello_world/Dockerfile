@@ -15,6 +15,6 @@
 # [config] 
 # [config] GIT_TAG_PREFIX: "examples/hello_world/"
 
-FROM groovenauts/http_job_runner:0.0.2
+FROM groovenauts/http_job_runner:0.0.3
 
 COPY bin/* $JOB_HOME/bin/
