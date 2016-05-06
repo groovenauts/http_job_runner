@@ -91,7 +91,6 @@ SECRET_KEY_BASE: d6295088a32acfc29a844a0bac73d5660bebfb6e5d0a81eb49f4e3428f79713
 magellan-cli project select DefaultProject1
 magellan-cli stage select DefaultStage1
 magellan-cli cloudsql select hello_world_db
-magellan-cli cloudsql select hello_world_db
 magellan-cli cloudsql show
 ```
 
