@@ -44,8 +44,11 @@ HTTP/HTTPSの他、MQTTにも対応しております。
 
 HTTP Job Runnerで作ったアプリケーションをMAGELLANへデプロイする具体的な方法については以下を参照してください。
 
-- [HTTP Job Runnerアプリをデプロイする(ブラウザ版)](../doc/deploy_to_magellan_with_browser.ja.md)
-- [HTTP Job Runnerアプリをデプロイする(コマンド版)](../doc/deploy_to_magellan_with_command.ja.md)
+- [HTTP Job Runnerアプリをデプロイする(ブラウザ版)](https://github.com/groovenauts/http_job_runner/blob/master/doc/deploy_to_magellan_with_browser.ja.md)
+- [HTTP Job Runnerアプリをデプロイする(コマンド版)](https://github.com/groovenauts/http_job_runner/blob/master/doc/deploy_to_magellan_with_command.ja.md)
+
+https://github.com/groovenauts/http_job_runner/blob/master/README.md
+
 
 
 ## HTTP Job Runnerの開発
